@@ -8,23 +8,26 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Java class that models a function of x. The following functions are supported:
+ * Java class that models a function of x. 
+ * 
+ * <p>The following functions are supported:
  * sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan, ln, log, sinh, cosh, tanh, sqrt. 
- * Arguments are assumed to be in radians.
+ * Arguments are assumed to be in radians.</p>
  * 
  * @author Ayesha Ilyas
  * @since 3/25/22
  * <p>Updated 4/11/22</p>
  * <p>Updated 4/25/22</p>
  * @version 1.3
+ * 
  */
 
 public class Function {
 	// * * * * * * * * * * * Private Attributes * * * * * * * * * * //
-	private List<String> originalTokens;
-	private String function;
 	private final String[] validTokens = {"x", "e", "pi", "sin", "cos", "tan", "csc", "sec", "cot", "arcsin", 
 			"arccos", "arctan", "ln", "log", "sinh", "cosh", "tanh", "sqrt"};
+	private List<String> originalTokens;
+	private String function;
 
 	// * * * * * * * * * * * Public Services * * * * * * * * * * //
 	/**
@@ -44,6 +47,7 @@ public class Function {
 
 	/**
 	 * Changes the function that the <code>Function</code> object represents.
+	 * 
 	 * @param function a <code>String</code> representing the new function
 	 * @throws IllegalArgumentException if the <code>function</code> if not valid
 	 */
@@ -242,7 +246,7 @@ public class Function {
 	// sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan, ln, log, sinh, cosh, tanh, sqrt
 	// arguments in radians
 	// Assumes that the element after the function name is the argument to function and attempts to calculate
-	// 		with that argument. If the argument is NaN, then a NumberFormatException is caught and the program continues executing.
+	// 	with that argument. If the argument is NaN, then a NumberFormatException is caught and the program continues executing.
 	// throws ArithmeticException if number is not in domain of function or division by zero
 	private void resolveFunctions(List<String> tokens) {
 		ListIterator<String> iterator = tokens.listIterator();
@@ -251,7 +255,6 @@ public class Function {
 			return;
 
 		// calculate function values
-
 		while (iterator.hasNext()) {
 			try {
 				// get current index
@@ -309,6 +312,7 @@ public class Function {
 					// if the number is not in the domain, then the result will either be NaN or +/- infinity 
 					if (Double.isNaN(result) || Double.isInfinite(result))
 						throw new ArithmeticException(String.format("%.4f not in domain", number));
+				
 					// set value to the left of operand to result
 					tokens.set(i, String.valueOf(result));
 					// delete current and next item
@@ -317,6 +321,7 @@ public class Function {
 					iterator.remove();	
 					iterator.previous();
 				} 
+				
 				// advance iterator
 				iterator.next();
 			} catch (NumberFormatException e) {
@@ -371,7 +376,7 @@ public class Function {
 
 			else if (tokens.get(i).equals("/")) {
 				double result = parseNumber(tokens.get(i - 1)) / parseNumber(tokens.get(i + 1));
-				if (Double.isInfinite(result)) 
+				if (Double.isInfinite(result) || Double.isNaN(result)) 
 					throw new ArithmeticException(String.format("%s not in domain", tokens.get(i + 1)));
 				// set value to the left of operand to result
 				tokens.set(i - 1, String.valueOf(result));
@@ -483,6 +488,9 @@ public class Function {
 
 				} else if (!potentialNumber.isEmpty())  {
 					// if token is invalid throw an exception
+					// check to see if any part of the token is valid
+					// need for cases where a number like pi or e is being multiplied by another number
+					//   without being explicitly separated by a multiplication symbol
 					String numericPart = "";
 					String nonNumericPart = "";
 					for (int index = 0; index < token.length(); index++) {
@@ -617,7 +625,7 @@ public class Function {
 			throw new IllegalArgumentException(String.format("Unknown token \"%s\" in expression.", function));
 		}
 
-		else if (function.length() > 1) {
+		else if (function.length() >= 2) {
 			char first = function.charAt(0);
 			char second = function.charAt(1);
 			// replace leading negative sign followed by x, a number, or valid token (any function name)
@@ -630,8 +638,8 @@ public class Function {
 				}
 			}
 
-			// if there is a single leading plus sign followed by x or a digit, remove the sign
-			else if (first == '+' && (second == 'x' || Character.isDigit(second)))  
+			// if there is a single leading plus sign followed by x, a digit, or function name, remove the sign
+			else if (first == '+' && (second == 'x' || Character.isDigit(second) || containsValidToken(function, 1)))  
 				function = function.replaceFirst("\\+", ""); 
 
 			// throw error if the first character is an operator not equal to + / - followed by x or digit 

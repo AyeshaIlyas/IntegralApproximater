@@ -31,6 +31,7 @@ public class Test {
 	 * if the value is in the domain. Type QUIT to exit.
 	 */
 	public static void test1() {
+		
 		System.out.println("Type QUIT to exit");
 		Scanner input = new Scanner(System.in);
 
@@ -65,6 +66,7 @@ public class Test {
 
 	/**
 	 * Prints to the console the result of creating <code>Function</code> objects and evaluating them at 5.
+	 * NOTE: 5 may or may not be in the domain of the tested functions.
 	 */
 	public static void test2() {
 		// valid functions

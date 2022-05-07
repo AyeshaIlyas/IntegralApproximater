@@ -5,7 +5,7 @@ package integrals;
 /**
  * ApproximateIntegral provides static methods to estimate integrals using 
  * the Left Endpoint Rule, Right Endpoint Rule, Midpoint Rule, Trapezoidal Rule, and/or Simpson’s Rule.
- * A set of recursive and iterative methods are provided. The interval of integration is assumed to
+ * Both a set of recursive and iterative methods are provided. The interval of integration is assumed to
  * be continuous.
  * 
  * @author Ayesha Ilyas 
@@ -13,14 +13,14 @@ package integrals;
  * <p>Updated 4/3/22</p>
  * <p>Updated 4/11/22</p>
  * @see integrals.Function
+ * 
  */
 
 public class ApproximateIntegral {
 
 	private static final String note = 
 			"NOTE: Numbers are rounded to 4 decimal places for cleaner output," +
-					System.lineSeparator() + 
-					"      but the underlying calculation remains precise.";
+			System.lineSeparator() + "      but the underlying calculation remains precise.";
 
 
 	// * * * * * * * * * * * Iterative functions * * * * * * * * * * // 

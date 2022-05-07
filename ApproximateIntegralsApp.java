@@ -13,6 +13,7 @@ import java.util.Scanner;
  * @since 4/3/22
  * <p>Updated 4/11/22</p>
  * @version 1.4
+ * @see integrals.ApproximateIntegral
  * 
  */
 
@@ -41,7 +42,7 @@ public class ApproximateIntegralsApp {
 				"	• x is assumed to be the function's variable",
 				"	• The function, f(x), must be continuous over [a, b]",
 				"	• n must be greater than zero (and a positive even number for Simpson's Rule)",
-				"	• a must be greater than b",
+				"	• b must be greater than a",
 
 				"Tips:",
 				"	• Type \"pi\" for π",
@@ -125,7 +126,6 @@ public class ApproximateIntegralsApp {
 			// - - - Approximate using method specified - - - //
 			try {
 
-				// FIND CLEANER WAY TO DO THIS
 				System.out.printf("%nResults:%n");
 
 				// variables to store the approximation of the integral
@@ -133,7 +133,8 @@ public class ApproximateIntegralsApp {
 
 				// NOTE: calculating the integrals and printing the results are done separately 
 				// 	so that if the user chooses to show steps, the steps are displayed for each method,
-				//  THEN a summary of the results of shown at the end, after all the steps.
+				//  THEN a summary of the results are shown at the end, after all the steps are printed to
+				//  the console.
 
 				// approximate the integral and store in above variables
 				// show steps 
