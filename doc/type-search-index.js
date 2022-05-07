@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"integrals","l":"ApproximateIntegral"},{"p":"integrals","l":"ApproximateIntegralsApp"},{"p":"integrals","l":"Function"},{"p":"integrals","l":"Test"}];updateSearchResults();
